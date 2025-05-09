@@ -106,11 +106,11 @@ function Map() {
   if (!user) return null;
 
   return (
-    <div style={{ height: '100vh', width: '100%' }}>
+    <div className="h-screen w-full relative">
       <MapContainer
         center={userLocation}
         zoom={13}
-        style={{ height: '100%', width: '100%' }}
+        className="h-full w-full"
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
