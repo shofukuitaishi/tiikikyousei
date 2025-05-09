@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useAuth } from '../context/AuthContext';
@@ -18,6 +18,15 @@ interface Location {
   longitude: number;
   user_id: string;
   username: string;
+}
+
+interface LocationResponse {
+  latitude: number;
+  longitude: number;
+  user_id: string;
+  profiles: {
+    username: string;
+  } | null;
 }
 
 function Map() {
@@ -95,11 +104,11 @@ function Map() {
 
     if (!data) return;
 
-    setLocations(data.map(location => ({
+    setLocations((data as LocationResponse[]).map(location => ({
       latitude: location.latitude,
       longitude: location.longitude,
       user_id: location.user_id,
-      username: location.profiles.username
+      username: location.profiles?.username ?? 'Unknown User'
     })));
   };
 
