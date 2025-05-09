@@ -38,7 +38,7 @@ function Map() {
         setUserLocation([latitude, longitude]);
 
         // Update location in Supabase
-        await supabase
+        const { error: locationError } = await supabase
           .from('locations')
           .upsert({
             user_id: user.id,
@@ -48,6 +48,10 @@ function Map() {
           }, {
             onConflict: 'user_id'
           });
+
+        if (locationError) {
+          console.error('Error updating location:', locationError);
+        }
       },
       (error) => console.error('Error getting location:', error),
       { enableHighAccuracy: true }
@@ -88,6 +92,8 @@ function Map() {
       console.error('Error fetching locations:', error);
       return;
     }
+
+    if (!data) return;
 
     setLocations(data.map(location => ({
       latitude: location.latitude,
