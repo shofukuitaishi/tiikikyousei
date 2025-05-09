@@ -103,12 +103,11 @@ function Map() {
     })));
   };
 
-  if (typeof window === 'undefined') return null;
+  if (!user) return null;
 
   return (
-    <div className="h-screen w-full relative">
+    <div style={{ height: '100vh', width: '100%' }}>
       <MapContainer
-        key={`${userLocation[0]}-${userLocation[1]}`}
         center={userLocation}
         zoom={13}
         style={{ height: '100%', width: '100%' }}
@@ -117,11 +116,9 @@ function Map() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        {/* User's location */}
         <Marker position={userLocation}>
           <Popup>You are here</Popup>
         </Marker>
-        {/* Other users' locations */}
         {locations.map((location) => (
           <Marker
             key={location.user_id}
