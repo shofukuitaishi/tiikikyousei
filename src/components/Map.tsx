@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useAuth } from '../context/AuthContext';
-import { supabase } from '../lib/supabaseClient';
+import { useAuth } from '@/lib/context/AuthContext';
+import { supabase } from '@/lib/supabase/client';
 import L from 'leaflet';
 
 // Fix Leaflet default marker icon
@@ -141,4 +141,4 @@ function Map() {
   );
 }
 
-export default Map;
+export default Map
