@@ -26,7 +26,7 @@ interface LocationResponse {
   user_id: string;
   profiles: {
     username: string;
-  } | null;
+  }[];
 }
 
 function Map() {
@@ -104,11 +104,11 @@ function Map() {
 
     if (!data) return;
 
-    setLocations((data as LocationResponse[]).map(location => ({
+    setLocations(data.map((location: LocationResponse) => ({
       latitude: location.latitude,
       longitude: location.longitude,
       user_id: location.user_id,
-      username: location.profiles?.username ?? 'Unknown User'
+      username: location.profiles?.[0]?.username ?? 'Unknown User'
     })));
   };
 
